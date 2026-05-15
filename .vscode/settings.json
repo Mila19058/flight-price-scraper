@@ -1,0 +1,4 @@
+{
+  "python.defaultInterpreterPath": "${workspaceFolder}/flight-price-scraper/.venv/Scripts/python.exe",
+  "python.terminal.activateEnvironment": true
+}
