@@ -3,25 +3,36 @@ Booking.com Flights: halbautomatischer Ablauf (FHNW LO4).
 
 Hintergrund für die Studienabgabe:
 - Booking.com reagiert empfindlich, wenn mehrere Abflughäfen gleichzeitig
-  eingegeben werden. Deshalb wird der **Abflugort bewusst manuell** gewählt
-  und pro Durchlauf nur EINER (z. B. zuerst ZRH, dann in einem zweiten
-  Durchlauf BSL). Der Vergleich Zürich vs. Basel passiert später in der
-  Auswertung über die Spalte `origin`.
-- Beim **Zielort** funktionieren mehrere Städte gleichzeitig stabil; die
-  Standard-Zielliste (London, Berlin, Rom, Barcelona, Paris) wird im
-  Terminal angezeigt und automatisch in die CSV-Spalte `destination_city`
-  übernommen.
+  eingegeben werden. Deshalb wird der Abflugort bewusst manuell gewählt
+  und pro Durchlauf nur EIN Flughafen verwendet
+  (z. B. zuerst ZRH, danach in einem zweiten Durchlauf BSL).
+  Der Vergleich Zürich vs. Basel erfolgt später in der Auswertung
+  über die Spalte `origin`.
+
+- Beim Zielort funktionieren mehrere Städte gleichzeitig stabil.
+  Die Standard-Zielliste (London, Berlin, Rom, Barcelona, Paris)
+  wird im Terminal angezeigt und zusätzlich in die CSV-Spalte
+  `destination_city` übernommen.
 
 Ablauf pro Durchlauf:
-  1) Selenium öffnet Booking.com Flights, akzeptiert Cookies,
-     aktiviert «Nur Hinflug» und «Nur Direktflüge».
-  2) Im Browser wählt die nutzende Person Abflugort, Ziele und Datum
-     und startet die Suche.
-  3) Sobald die Trefferliste sichtbar ist: im Terminal Enter drücken.
-  4) Das Programm fragt origin, destination_city, departure_date ab.
-  5) Selenium liest die Treffer aus (inkl. Pagination «Weiter») und hängt
-     die Zeilen an die CSV an.
-  6) Frage nach einem weiteren Durchlauf (z. B. zweiter Origin BSL).
+  1) Selenium öffnet Booking.com Flights, akzeptiert Cookies
+     und aktiviert «Nur Hinflug» sowie «Nur Direktflüge».
+
+  2) Im Browser wählt die nutzende Person Abflugort,
+     Zielorte und Datum und startet die Suche manuell.
+
+  3) Sobald die Trefferliste sichtbar ist,
+     wird im Terminal Enter gedrückt.
+
+  4) Das Programm fragt danach `origin`,
+     `destination_city` und `departure_date` ab.
+
+  5) Selenium liest die Trefferseiten aus
+     (inkl. Pagination über «Weiter»)
+     und hängt die Daten an die CSV-Datei an.
+
+  6) Danach kann optional ein weiterer Durchlauf gestartet werden
+     (z. B. für den zweiten Abflugort BSL).
 """
 
 from __future__ import annotations
@@ -392,7 +403,7 @@ def extract_flight_cards(driver, timeout: int = 20) -> list[dict]:
         destination_airport,
         stops_text,
         duration,
-    ) in zip(*padded):
+    ) in zip(*padded, strict=False):
         rows.append(
             {
                 "price_text": price_text,

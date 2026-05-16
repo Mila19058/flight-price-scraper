@@ -113,7 +113,8 @@ def clean_flight_data(
     df: pd.DataFrame, stats: ProcessingStats | None = None
 ) -> pd.DataFrame:
     """
-    Bereinigt Rohdaten: Text, Datums- und Preisfelder, Dauer, Zielgruppe, entfernt ungültige Datumszeilen und Duplikate.
+    Bereinigt Rohdaten: Text, Datums- und Preisfelder, Dauer, 
+    Zielgruppe, entfernt ungültige Datumszeilen und Duplikate.
     """
     if stats is not None:
         stats.raw_rows = int(len(df))
