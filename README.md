@@ -1,10 +1,11 @@
-Booking.com Flights – halbautomatischer Scraper (FHNW LO4)
-Motivation des halbautomatischen Ansatzes
-Im Projekt wurde bewusst ein halbautomatischer Ansatz gewählt. Booking.com Flights verwendet dynamische React-Komponenten und reagiert teilweise empfindlich auf vollständig automatisierte Eingaben, insbesondere bei mehreren Abflughäfen innerhalb derselben Suchanfrage.
+## Motivation des halbautomatischen Ansatzes
 
-Deshalb übernimmt Selenium die technische Navigation (Cookies, Formularvorbereitung, Pagination und Extraktion der Resultate), während die eigentliche Suchanfrage manuell ausgelöst wird.
+Im Projekt wurde bewusst ein halbautomatischer Ansatz gewählt.
+Während der Tests zeigte sich, dass Booking.com empfindlich auf vollständig automatisierte Eingaben reagiert – insbesondere dann, wenn mehrere Abflughäfen gleichzeitig verwendet werden.
 
-Dadurch bleibt der Ablauf stabil und entspricht gleichzeitig der Vorgabe, keine Sicherheitsmechanismen oder Captchas zu umgehen.
+Deshalb übernimmt Selenium hauptsächlich die Navigation, Pagination und Extraktion der Resultate, während die eigentliche Suche manuell gestartet wird.
+
+Dadurch bleibt das Scraping stabil und entspricht gleichzeitig der Vorgabe, keine Sicherheitsmechanismen oder Captchas zu umgehen.
 
 Warum Abflughafen manuell, Flugziele vorbereitet?
 Mehrere Abflughäfen innerhalb derselben Suchanfrage führten in Tests regelmässig zu Instabilitäten auf Booking.com Flights. Deshalb wird pro Suchdurchlauf nur ein Abflughafen verwendet (z. B. zuerst ZRH, danach BSL).
